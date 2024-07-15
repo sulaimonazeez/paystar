@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+  
+  <style>
+    .moon-s {
+      background-color: lightgrey;
+      padding: 10px;
+      color: black;
+      position: relative;
+      left: 90px;
+      border-radius: 2vw;
+      
+    }
+    .moon-s:hover {
+      background-color: black;
+      color: white;
+    }
+    .keeper {
+      color: #040273;
+      font-size: 40px;
+    }
+    .mono {
+      font-family: "Reddit Mono", monospace;
+      font-optical-sizing: auto;
+      font-weight: 500;
+      font-style: normal;
+    }
+    .call-up {
+      position: relative;
+      top: -20px;
+    }
+    .outer-progress > .inner-progress {
+      display: block;
+      background-color: green;
+      width: 94vw;
+      height: 0.8vw;
+    }
+    .self-container > p {
+      margin-top: 6vw;
+    }
+    .self-container > h4 {
+      margin-bottom: 5vw;
+      margin-top: -1vw;
+      color: grey;
+      font-weight: 777;
+    }
+    .connect-h {
+      color: grey;
+      font-weight: 777;
+    }
+    .justify-content-between {
+      margin-top: 3vw;
+    }
+    .channel-section {
+      margin-top: 9vw;
+    }
+    section > p {
+      font-weight: 550;
+    }
+    .choosen {
+      font-weight: 550;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="javascript:void(0)"><span class="text-danger">P</span>ay<span class="text-danger">s</span>tar</a>
+    <i class="moon-s fa fa-moon-o"></i>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mynavbar">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="javascript:void(0)">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="javascript:void(0)">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="javascript:void(0)">Link</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="text" placeholder="Search">
+        <button class="btn btn-primary" type="button">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid mt-4">
+  <div class="row container-fluid">
+    <div class="col-xs-12 col-sm-6">
+     <h1 data-aos="zoom-out" class="mono keeper text-danger">Keeping you connected!</h1>
+     <p data-aos="fade-down" class="">Enjoy highly discounted rates on all our Services. Data, Airtime, Capble tv, Electricity bill, Education pin, etc..</p>
+     <div class="login-option" data-aos="fade-up">
+       <button style="width: 130px" class="text-center p-2 btn fw-bold btn-success">Register</button>
+       <button style="width: 110px" class="text-center fw-bold btn btn-dark p-2">Login</button>
+     </div>
+     <div data-aos="fade-up" class="mt-3 login-option">
+       <button style="width: 130px" class="text-center fw-bold p-2 btn btn-primary">IOS App</button>
+       <button style="width:130px" class="fw-bold text-center p-2 btn btn-secondary">Android App</button>
+     </div>
+     </div>
+     <div class="col-xs-12 col-sm-4">
+        <img class="w-100" src={% static 'gifme.gif' %} alt="roller" />
+     </div>
+  </div>
+  <div class="row mt-5 container-fluid">
+    <div class="col-xs-12 col-sm-6">
+      <img class="w-100" src={% static "data.jpg" %} alt="vtu" />
+      <div class="text-center call-up">
+        <button class="btn btn-light text-dark fw-bold">Data Plan</button>
+        <p class="text-secondary">Get Internet Data starting from as low as #220/GB</p>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+      <img class="w-100" src={% static "vtu.jpg" %} alt="vtu" />
+      <div class="text-center call-up">
+        <button class="btn btn-light text-dark fw-bold">Data Plan</button>
+        <p class="text-secondary">Get Internet Data starting from as low as #220/GB</p>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12">
+      <img class="w-100" src={% static "bills.jpg" %} alt="vtu" />
+      <div class="text-center call-up">
+        <button class="btn btn-light text-dark fw-bold">Data Plan</button>
+        <p class="text-secondary">Get Internet Data starting from as low as #220/GB</p>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+      <img class="w-100" src={% static "a2c.jpg" %} alt="vtu" />
+      <div class="text-center call-up">
+        <button class="btn btn-light text-dark fw-bold">Data Plan</button>
+        <p class="text-secondary">Get Internet Data starting from as low as #220/GB</p>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+      <img class="w-100" src={% static "retailer_website.jpg" %} alt="vtu" />
+      <div class="text-center call-up">
+        <button class="btn btn-light text-dark fw-bold">Data Plan</button>
+        <p class="text-secondary">Get Internet Data starting from as low as #220/GB</p>
+      </div>
+    </div>
+  </div>
+  <div>
+    <img class="rounded w-100" src={% static "why-choose.jpg" %} />
+    <div class="self-container">
+      <p class="choosen">WHY CHOOSE US?</p>
+      <h4>We are the best at what we do.</h4>
+      <div class="d-flex justify-content-between">
+        <p>Automated</p>
+        <p>99.99%</p>
+      </div>
+      <div class="outer-progress">
+        <div class="inner-progress"></div>
+      </div>
+      <div class="d-flex justify-content-between">
+        <p>Speed</p>
+        <p>99.99%</p>
+      </div>
+      <div class="outer-progress">
+        <div class="inner-progress"></div>
+      </div>
+      <div class="d-flex justify-content-between">
+        <p>Coustomer Support</p>
+        <p>99.99%</p>
+      </div>
+      <div class="outer-progress">
+        <div class="inner-progress"></div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <p>Affordability</p>
+        <p>99.99%</p>
+      </div>
+      <div class="outer-progress">
+        <div class="inner-progress"></div>
+      </div>
+  </div>
+  <section class="channel-section">
+    <p>OUR CHANNELS</p>
+    <h4 class="connect-h">Connect with us through several channels</h4>
+    <div>
+      <p>
+        We have several channels you can choose to connect and make transactions on our platform, from our Website to Mobile App, API, USSD, SMS and our Powerful Whatsapp Bot.
+      </p>
+    </div>
+  </section>
+</div>
+<br /><br />
+<script>
+  AOS.init();
+</script>
+</body>

@@ -1,0 +1,61 @@
+{% extends "extenders.html" %}
+{% load static %}
+{% block content %}
+  <div class="container-fluid">
+    <div class="box-header">
+      <div class="inner-flex">
+        <h3>Hi, {{user.first_name}}</h3>
+        <h3>(Subscriber)</h3>
+      </div>
+      <div class="inner-flex">
+        <div class="wallet-tx">
+          <h3>N2000</h3>
+          <h4 style="position: relative; top: -4vw">Wallet Balance</h4>
+        </div>
+        <div class="users">
+          <i class="fa fa-users"></i>
+          <h5>JOIN US</h5>
+        </div>
+      </div>
+      <div>
+        <h5 class="telegram">CLICK HERE To Join Telegram Channel</h5>
+      </div>
+    </div>
+    
+    <div class="white-header">
+      <h5>Quick Link</h5>
+      <hr />
+      <div class="inner-main">
+        <div><i class="fa fa-user-secret"></i><br/><p class="vd">Upgrade</p></div>
+        <div><i class="fa fa-user"></i><br/><p class="vd">Profile</p></div>
+        <div><i class="fa fa-wifi"></i><br/><p class="vd">Buy Data</p></div>
+        <div><i class="fa fa-th"></i><br/><p class="vd">More</p></div>
+      </div>
+      <hr />
+      <br />
+      <a class="no-play" href="#">CLICK HERE TO FUND YOUR WALLET</a>
+    </div>
+    
+    <div class="white-header">
+      <div class="payment-toggle">
+        <a onclick="Payvassel()" class="ex-1">Payvessel</a>
+        <a onclick="Monnify()">Monnify</a>
+        <a class="ex-2">One-Time</a>
+      </div>
+      <div id="payvessel" class="payvessel">
+        <p>Get A Payvessel Service Bank Fpr Automated, Generate A Dedicated Account Number Now. Funding Attract 50 Only.</p>
+        <button style="text-align:center">Generate Account</button>
+      </div>
+      <div id="monnify" class="monnify">
+        <p>Monnify is Not Available Right Now Our Team is Working hard to Fixed That Out Thanks. </p>
+        <button style="text-align: center">Generate Account</button>
+      </div>
+      
+    </div>
+  </div>
+  <br /><br /><br /><br /><br />
+{% endblock %}
+
+{% block toggle %}
+  <script src={% static "Js/toggles.js" %}></script>
+{% endblock %}

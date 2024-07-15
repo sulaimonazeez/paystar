@@ -1,0 +1,29 @@
+<!Doctype html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href={% static "css/login.css" %} />
+  </head>
+  <body>
+    <div class="outer-container">
+      <div class="container-fluid">
+        <h2>Login</h2>
+        <h4>Welcome Back</h4>
+        <form method="POST">
+          {% csrf_token %}
+          <input class="feild" type="text" name="username" placeholder="Username" required=""/><br/>
+          <input id="pass" class="field" type="password" name="password" placeholder="Password" /><span class="show-hide" id="hideshow">show</span>
+          <input class="login-btn" type="submit" value="Login" />
+          <p style="color: red">{{error}}</p>
+          <p class="new-set"><a href="/recover">Forget Password? Recover It</a></p>
+          <p class="new-set"><a href="/create">New User? Create Account</a></p>
+        </form>
+      </div>
+    </div>
+    <script src={% static "Js/login.js" %} ></script>
+  </body>
+</html>

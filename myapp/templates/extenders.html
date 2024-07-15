@@ -1,0 +1,52 @@
+<!Doctype html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <title>Homepage</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% if nightmode %}
+      <link rel="stylesheet" href={% static "css/nightmode/home.css" %} />
+    {% else %}
+      <link rel="stylesheet" href={% static "css/home.css" %} />
+    {% endif %}
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script src={% static "Js/email.js" %}></script>
+     {% block toggle %} {% endblock %}
+  </head>
+  <body>
+    <div style="z-index:999999999" class="header">
+      <i class="fa fa-home"></i>
+      <p style="z-index:9999999"><strong>Paystar</strong></p>
+      <div style="z-index:999999999" class="outter-head">
+        <i id="darkmode" class="px fa fa-moon-o"></i>
+        <i id="notify" class="fa fa-envelope"></i>
+        <span class="small-modal">1</span>
+      </div>
+    </div>
+    <div class="container-fluid">
+      {% block content %} {% endblock %}
+    </div>
+    <div class="down-fixed">
+      <div id="click1">
+        <i class="fa fa-home"></i><br />
+        <small>Home</small>
+      </div>
+      <div id="click2">
+        <i class="fa fa-newspaper-o"></i><br />
+        <small>Transaction</small>
+      </div>
+      <div id="click3">
+        <i class="fa fa-bell"></i><br />
+        <small>Notification</small>
+      </div>
+      <div id="click4">
+        <i class="fa fa-lock"></i><br/>
+        <small>Logout</small>
+      </div>
+    </div>
+    <script src={% static "Js/extender.js" %}></script>
+  </body>
+</html>

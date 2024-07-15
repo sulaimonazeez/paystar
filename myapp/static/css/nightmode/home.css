@@ -1,0 +1,245 @@
+body {
+  background-color: #28282B;
+  font-family: 'Roboto', sans-serif;
+}
+
+.header {
+  z-index: 9999999999;
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  background-color: #1B1212;
+  width: 100%;
+  left:0;
+  color: white;
+}
+.header > * {
+  z-index:9999999999;
+  color: white;
+}
+.header > i {
+  font-size: 20px;
+  position: relative;
+  top: 3.6vw;
+  left: 3%;
+  z-index: 999999999;
+  color: white;
+}
+.outter-head > .px {
+  position: relative;
+  left: -70%;
+}
+.outter-head > i{
+  font-size: 20px;
+  position: relative;
+  left: -5%;
+  top: 25%;
+}
+
+.down-fixed {
+  position: fixed;
+  bottom: 0;
+  background-color: #1B1212;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  left: 0;
+  text-align: center;
+  color: white;
+}
+
+.down-fixed > div {
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+.down-fixed > * {
+  padding: 3vw;
+  color: white;
+  font-weight: bold;
+}
+.container-fluid {
+  margin-top: 20vw;
+}
+.container-fluid > .box-header {
+  background: linear-gradient(#B59410,#1B1212);
+  width: 92%;
+  border-radius: 5vw;
+  height: 45vw;
+  padding: 2vw;
+  color: white;
+  margin: 2vw;
+  font-weight: 700;
+  position: relative;
+}
+.box-header > .inner-flex {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  top: -10%;
+}
+.wallet-tx {
+  position: relative;
+  top: -14%;
+}
+.users > i {
+  background-color: white;
+  color: #B59410;
+  padding: 3vw;
+  font-size: 26px;
+  border-radius: 4vw;
+}
+
+.users > h5 {
+  position: relative;
+  top: -17%;
+}
+.telegram {
+  position: relative;
+  top: -10vw;
+}
+.white-header {
+  background-color: #343434;
+  width: 92%;
+  border-radius: 5vw;
+  height: 45vw;
+  padding: 2vw;
+  color: white;
+  margin: 2vw;
+  margin-top: 6vw;
+  padding-bottom: 5vw;
+}
+.white-header > * {
+  margin-top: -0.1%;
+}
+.white-header > h5 {
+  padding: 2vw;
+}
+.white-header > hr {
+  margin-top: -3.5vw;
+}
+.inner-main {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  text-align: center;
+  flex-wrap: wrap;
+}
+.inner-main > * {
+  padding: 2vw;
+}
+.inner-main > div > i {
+  color: #B59410;
+  font-size: 20px;
+  margin-bottom: 10%;
+  flex-wrap: wrap;
+}
+.inner-main > div {
+  text-align: center;
+  flex-wrap: wrap;
+  flex: 1;
+  flex-basis: 20%;
+}
+.vd{
+  position: relative;
+  top: -2.5vw;
+  flex: 1;
+  flex-basis: 20%;
+}
+#gotit {
+  position: relative;
+  top: 10%;
+}
+.no-play {
+  text-decoration: none;
+  background-color: #B59410;
+  padding: 3vw;
+  color: white;
+  font-weight: 777;
+  border-radius: 50vw;
+}
+.payment-toggle {
+  padding: 3px;
+  display: flex;
+  justify-content: space-between;
+  
+}
+.payment-toggle > a {
+  text-decoration: none;
+  padding: 2vw;
+  width: 100%;
+  margin: 0auto;
+  text-align: center;
+  color: White;
+  border: solid 0.5px grey;
+}
+.payment-toggle > .ex-1 {
+  border-radius: 2vw 0 0 2vw;
+  background-color: #B59410;
+  color: white;
+}
+.payment-toggle > .ex-2 {
+  border-radius: 0 2vw 2vw 0;
+}
+.white-met {
+  background-color: white;
+  width: 92%;
+  border-radius: 5vw;
+  height: 45vw;
+  padding: 2vw;
+  margin: 2vw;
+  margin-top: 6vw;
+  text-align: center;
+}
+.payment-toggle > a:hover{
+  background-color: #B59410;
+  color: white;
+}
+.monnify {
+  display: none;
+}
+.payvessel > *{
+  text-align: center;
+}
+.payvessel {
+  text-align: center;
+}
+.payvessel > p {
+  color: red;
+}
+.payvessel > button {
+  background-color: #B59410;
+  color: white;
+  border-radius: 50vw;
+  padding: 3vw;
+  text-align: center;
+}
+
+.monnify > *{
+  text-align: center;
+}
+.monnify {
+  text-align: center;
+}
+.monnify > p {
+  color: red;
+}
+
+.monnify > button {
+  background-color: #B59410;
+  color: white;
+  border-radius: 50vw;
+  padding: 3vw;
+  text-align: center;
+}
+
+.small-modal {
+  background-color: red;
+  color: white;
+  padding: 1vw;
+  border-radius: 2vw;
+  position: relative;
+  right: 3vw;
+  font-size: 10px;
+}

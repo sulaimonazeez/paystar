@@ -1,0 +1,12 @@
+africastalking==1.2.7
+asgiref==3.8.1
+certifi==2024.6.2
+charset-normalizer==3.3.2
+Django==5.0.6
+idna==3.7
+pycryptodome==3.20.0
+rave-python==1.4.0
+requests==2.32.3
+schema==0.7.7
+sqlparse==0.5.0
+urllib3==2.2.2

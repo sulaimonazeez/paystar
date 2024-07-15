@@ -1,0 +1,32 @@
+<!Doctype html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href={% static "css/login.css" %} />
+  </head>
+  <body>
+    <div class="extr outer-container">
+      <div class="container-fluid">
+        <h2>Create Account</h2>
+        <form method="POST" action="/create">
+          {% csrf_token %}
+          <input class="feild" type="text" name="username" placeholder="Username" required=""/><br/>
+          <input class="feild" type="tel" name="phone_number" placeholder="Phone Number" required=""/><br/>
+          <input class="feild" type="tel" name="nin" placeholder="NIN" required=""/><br/>
+          <input class="feild" type="text" name="first_name" placeholder="First Name" required=""/><br/>
+          <input class="feild" type="text" name="last_name" placeholder="Last Name" required=""/><br/>
+          <input class="feild" type="text" name="email" placeholder="Email" required=""/><br/>
+          <input id="pass" class="field" type="password" name="password1" placeholder="Password" required=""/><span class="show-hide" id="hideshow">show</span><br />
+          <input style="position:relative; top: -20px" id="pass" class="field" type="password" name="password2" placeholder="Confirm Password" required=""/>
+          <input class="login-btn" type="submit" value="Login" />
+          <small style="color: red">{{error}}</small>
+          <p class="new-set"><a href="/signup">Already have Account? Login</a></p>
+        </form>
+      </div>
+    </div>
+    <script src={% static "Js/login.js" %} ></script>
+  </body>
+</html>
