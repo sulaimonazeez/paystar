@@ -5,16 +5,6 @@ class Profile(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)
   phone_number = models.CharField(max_length=15, unique=True)
   nin = models.CharField(max_length=12,unique=True)
-  
-class NetworkType(models.Model):
-  data_network = models.CharField(max_length=50)
-  def __str__(self):
-    return self.data_network
-    
-class Provider(models.Model):
-  providers = models.CharField(max_length=50)
-  is_available = models.BooleanField(default=False)
-  
 
 
 class VirtualAccounting(models.Model):

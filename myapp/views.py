@@ -148,3 +148,15 @@ def night_mode(request):
     except Exception as e:
         # Handle any other exceptions
         return HttpResponse(f"An error occurred: {e}")
+
+
+def purchase_data(request):
+  is_night = None
+  try:
+    nightmode = UserProfiles.objects.get(user=request.user)
+    is_night = nightmode.night_mode
+  except Exception:
+    is_night = False
+  return render(request, "data-purchase.html", {"nightmode":is_night})
+  
+  

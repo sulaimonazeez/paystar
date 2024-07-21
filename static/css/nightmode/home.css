@@ -1,5 +1,5 @@
 body {
-  background-color: lightgrey;
+  background-color: #28282B;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -9,12 +9,14 @@ body {
   top: 0;
   display: flex;
   justify-content: space-between;
-  background-color: white;
+  background-color: #1B1212;
   width: 100%;
   left:0;
+  color: white;
 }
 .header > * {
   z-index:9999999999;
+  color: white;
 }
 .header > i {
   font-size: 20px;
@@ -22,6 +24,7 @@ body {
   top: 3.6vw;
   left: 3%;
   z-index: 999999999;
+  color: white;
 }
 .outter-head > .px {
   position: relative;
@@ -37,25 +40,30 @@ body {
 .down-fixed {
   position: fixed;
   bottom: 0;
-  background-color: white;
+  background-color: #1B1212;
   display: flex;
   justify-content: space-between;
   width: 100%;
   left: 0;
   text-align: center;
+  color: white;
 }
 
 .down-fixed > div {
   text-align: center;
+  color: white;
+  font-weight: bold;
 }
 .down-fixed > * {
   padding: 3vw;
+  color: white;
+  font-weight: bold;
 }
 .container-fluid {
   margin-top: 20vw;
 }
 .container-fluid > .box-header {
-  background: linear-gradient(#B59410,#000);
+  background: linear-gradient(#B59410,#1B1212);
   width: 92%;
   border-radius: 5vw;
   height: 45vw;
@@ -92,12 +100,12 @@ body {
   top: -10vw;
 }
 .white-header {
-  background-color: white;
+  background-color: #343434;
   width: 92%;
   border-radius: 5vw;
   height: 45vw;
   padding: 2vw;
-  color: black;
+  color: white;
   margin: 2vw;
   margin-top: 6vw;
   padding-bottom: 5vw;
@@ -159,12 +167,11 @@ body {
 }
 .payment-toggle > a {
   text-decoration: none;
-  color: white;
   padding: 2vw;
   width: 100%;
   margin: 0auto;
   text-align: center;
-  color: black;
+  color: White;
   border: solid 0.5px grey;
 }
 .payment-toggle > .ex-1 {
@@ -235,74 +242,4 @@ body {
   position: relative;
   right: 3vw;
   font-size: 10px;
-}
-
-.purchase-form {
-  background-color: white;
-  width: 92%;
-  border-radius: 5vw;
-  padding: 2vw;
-  color: black;
-  margin: 2vw;
-  margin-top: 6vw;
-  padding-bottom: 10vw;
-}
-
-#network {
-  width: 95%;
-  padding: 4vw;
-  background-color: lightgrey;
-  color: grey;
-  border-radius: 2vw;
-  outline: none;
-}
-
-.fixed-price {
-  width: 85%;
-  padding: 4vw;
-  border-radius: 2vw;
-  outline: none;
-}
-
-.avail-cap{
-  color: blue;
-  text-align: center;
-  font-weight: bold;
-  font-size: 13px;
-}
-.buy-cap {
-  text-align: center;
-  margin-top: -1vw;
-}
-.alternative-choose {
-  display: flex;
-  justify-content: space-between;
-  justify-content: center;
-  text-align: center;
-}
-.alternative-choose > div {
-  background-color: lightgrey;
-  margin: 2vw;
-  text-align: center;
-  padding-top: 1vw;
-  padding-bottom: 1vw;
-}
-.alternative-choose > div > img {
-  width: 70%;
-}
-
-form > .labels {
-  background-color: white;
-  position: relative;
-  top: 2vw;
-  left: 2vw;
-  padding: 0.7vw;
-  font-weight: bold;
-  font-size: 12px;
-  border-radius: 5%;
-}
-
-.purchase-form > form {
-  position: relative;
-  left: 2vw;
 }

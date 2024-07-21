@@ -9,4 +9,5 @@ urlpatterns = [
   path("history", views.transaction_history),
   path("notification", views.notification),
   path("nightmode", views.night_mode),
+  path("databundle", views.purchase_data)
 ]
