@@ -1,13 +1,19 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import VirtualAccounting, UserProfiles
+from .models import VirtualAccounting, UserProfiles, Profile, Balance, Development
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
-from .models import Profile
 from .services import PaystackService
 import logging
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
+import random
+from django.db import transaction
+from django_weasyprint import WeasyTemplateView
+from django.views import View
+from django.urls import reverse
+
+
 
 def notification(request):
   is_night = None
@@ -25,7 +31,9 @@ def transaction_history(request):
     is_night = nightmode.night_mode
   except Exception:
     is_night = False
-  return render(request, 'transaction.html', {"nightmode":is_night})
+    
+  dev = Development.objects.filter(user=request.user)
+  return render(request, 'transaction.html', {"nightmode":is_night, "dev": dev})
 
 
 
@@ -89,11 +97,16 @@ def logged(request):
 def home(request):
   is_night = None
   try:
+    balance = Balance.objects.get(user=request.user)
+  except Exception as e:
+    Balance.objects.create(user=request.user, balance=2000)
+    balance = Balance.objects.get(user=request.user)
+  try:
     nightmode = UserProfiles.objects.get(user=request.user)
     is_night = nightmode.night_mode
   except Exception:
     is_night = False
-  return render(request, "dashboard.html", {"nightmode":is_night})
+  return render(request, "dashboard.html", {"nightmode":is_night, "balance": balance})
   
 
 logger = logging.getLogger(__name__)
@@ -160,3 +173,102 @@ def purchase_data(request):
   return render(request, "data-purchase.html", {"nightmode":is_night})
   
   
+
+def buy_bundle(request):
+    if request.method == "POST":
+        try:
+            # Generate a unique transaction ID
+            unique = random.randint(0, 999999999999)
+
+            # Get the current user
+            user = request.user
+
+            # Get form data
+            charge = request.POST.get("amount")[1:]
+            phone_number = request.POST.get("phone")
+            data_amount = request.POST.get("dataType")
+            dataType = request.POST.get("sme")
+            service = request.POST.get("network")
+
+            # Get user's balance
+            x = Balance.objects.get(user=user)
+
+            # Check if balance is sufficient
+            if x.balance >= int(charge):
+                with transaction.atomic():
+                    # Deduct balance
+                    x.balance -= int(charge)
+                    x.save()
+
+                    # Create Development record
+                    Development.objects.create(
+                        user=user,
+                        balance=x,
+                        charge=charge,
+                        service=service,
+                        amount=charge,
+                        phone=phone_number,
+                        data_amount=data_amount,
+                        transaction_id=str(unique),
+                        status=True
+                    )
+                x = Development.objects.filter(user=user)[::-1][0]
+                return redirect(f'/myreciept/{x.id}')
+            else:
+                return HttpResponse('Insufficient balance')
+
+        except Balance.DoesNotExist:
+            return HttpResponse('Balance record not found')
+
+        except Exception as e:
+            return HttpResponse(f"Error occurred: {str(e)}")
+
+    return redirect("/home")
+
+class MyReciept(View):
+    def get(self, request, id, *args, **kwargs):
+        x = get_object_or_404(Development, id=id)
+        old_balance = x.amount + x.balance.balance
+        if request.GET.get('download'):
+            # Handle the PDF download
+            response = WeasyTemplateResponse(
+                request=request,
+                template='invoice.html',
+                context={
+                    'date': '2024-07-22',
+                    'customer_name': 'John Doe',
+                    'amount': '$100'
+                },
+                filename='invoice.pdf'
+            )
+            response.render()
+            pdf = response.rendered_content
+
+            response = HttpResponse(pdf, content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename="invoice.pdf"'
+            return response
+
+        # Render the initial content
+        return render(request, 'reciept.html',{"reciept":x, "old":old_balance})
+
+
+
+def myreciept(request, id):
+  x = get_object_or_404(Development, id=id)
+  old_balance = x.amount + x.balance.balance
+  return render(request, "reciept.html", {"reciept":x, "old":old_balance})
+  
+
+class InvoicePDFView(WeasyTemplateView):
+    template_name = 'invoice.html'
+    pdf_filename = 'invoice.pdf'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        id = kwargs.get('id')
+        x = get_object_or_404(Development, id=id)
+        old_balance = x.amount + x.balance.balance
+        context['reciept'] = x
+        context['old'] = old_balance
+        return context
+

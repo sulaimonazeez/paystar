@@ -1,5 +1,3 @@
-
-
 function Payvassel() {
   let payvassel = document.getElementById("payvessel");
   let monnify = document.getElementById("monnify");
@@ -40,8 +38,38 @@ $(document).ready(() =>{
             ["Glo Corporation 2GB", 570],
             ["Glo Corporation 3GB", 840]
         ]);
+  
+  
+        function getNumberFromPath() {
+            const path = window.location.pathname;
+            const match = path.match(/\/(\d+)(\/|$)/);
+            return match ? match[1] : null;
+        }
 
-        // Function to populate the .sme-cop dropdown
+        function downloadPDF() {
+            const id = getNumberFromPath();
+            if (id) {
+                alert(id)
+                const link = document.createElement('a');
+                link.href = `/viewer/${id}/?download=true`;
+                link.download = `invoice_${id}.pdf`; // Use ${id} in the filename
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                // Redirect to success page after download
+                setTimeout(() => {
+                    window.location.href = '/success/';
+                }, 1000); // Adjust the timeout as needed
+            } else {
+                alert('No ID found in URL');
+            }
+        }
+        
+            //$('.user-reciept').on('click', function() {
+                //downloadPDF();
+            //});
+  // Function to populate the .sme-cop dropdown
   function trickLayer(data) {
     let $myList = $(".data-amounts");
     // Empty the list if there's existing data
@@ -60,7 +88,7 @@ $(document).ready(() =>{
       trickLayer(airtelPlan);
     } else if ($isChange === "MTN") {
       trickLayer(mtnPlan);
-    } else if ($isChange === "Glo") {
+    } else if ($isChange === "GLO") {
       trickLayer(gloPlan);
     }
     // Clear the amount field when changing network
@@ -75,7 +103,7 @@ $(document).ready(() =>{
         amount = airtelPlan.get(selectedPlan);
       } else if (selectedNetwork === "MTN"){
         amount = mtnPlan.get(selectedPlan);
-      }else if (selectedNetwork === "Glo"){
+      }else if (selectedNetwork === "GLO"){
         amount = gloPlan.get(selectedPlan);
         
       }
@@ -85,6 +113,18 @@ $(document).ready(() =>{
       }else {
         $('#fixed-price').val('');
       }
+  });
+  $("#airtel").click(()=> {
+    $(".selecting").val("Airtel").change();
+  });
+  $("#mtn").click(()=> {
+    $(".selecting").val("MTN").change();
+  });
+  $("#glo").click(()=> {
+    $(".selecting").val("GLO").change();
+  });
+  $("#9mobile").click(()=> {
+    $(".selecting").val("GLO").change();
   });
   let toGo = document.createElement("a");
   $("#data").click(() =>{

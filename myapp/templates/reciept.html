@@ -1,0 +1,67 @@
+<!--- import Tr from '../../static/admin/js/vendor/select2/i18n/tr'; -->
+{% extends "extenders.html" %}
+
+{% load static %}
+
+{% block content %}
+<div class="parent-reciept">
+  <div class="reciept">
+    <div class="reciept-head">
+      <i class="fa fa-thumbs-up"></i><br/>
+      <p>Transaction Details</p>
+      <h2>Transaction</h2>
+    </div>
+    <div class="table-container">
+      <table class="table table-bordered">
+       <tbody>
+        <tr class="table-active">
+          <td>Transaction No</td>
+          <td>{{reciept.transaction_id}}</td>
+        </tr>
+        <tr>
+          <td>Service</td>
+          <td>{{reciept.service}}</td>
+        </tr>
+        <tr class="table-active">
+          <td>Description</td>
+          <td>Purchase of {{reciept.data_amount}} 30 Days <br/>
+          Plan for phone number {{reciept.phone}}
+          </td>
+        </tr>
+        <tr>
+          <td>Amount</td>
+          <td>{{reciept.amount}}</td>
+        </tr>
+        <tr class="table-active">
+          <td>Old Balance</td>
+          <td>{{old}}</td>
+        </tr>
+        <tr>
+          <td>New Balance</td>
+          <td>{{reciept.balance.balance}}</td>
+        </tr>
+        <tr class="table-active">
+          <td>Status</td>
+            {% if reciept.status %}
+              <td style="color: green; font-weight: bold">Transaction Successful</td>
+            {% else %}
+               <td>Transaction Failed</td>
+            {% endif %}
+        </tr>
+        <tr>
+          <td>Date</td>
+          <td>{{reciept.date}}</td>
+        </tr>
+       </tbody>
+      </table>
+      <br/>
+      <a href="/invoice/{{reciept.id}}" class="user-reciept">View User Reciept</a>
+    </div>
+  </div>
+</div>
+<br /><br /><br /><br />
+{% endblock %}
+
+{% block toggle %}
+  <script src={% static "Js/toggles.js" %}></script>
+{% endblock %}

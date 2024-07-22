@@ -7,14 +7,15 @@
         <p class="avail-cap">Data For All Network</p>
         <h2 class="buy-cap">Buy Data</h2>
         <div class="alternative-choose">
-          <div><img src={% static 'airtel.png' %} alt="Airtel" /></div>
-          <div><img src={% static 'mtn.png' %} alt="MTN" /></div>
-          <div><img src={% static 'glo.png' %} alt="Glo" /></div>
-          <div><img src={% static '9mobile.png' %} alt="Glo" /></div>
+          <div id="airtel"><img src={% static 'airtel.png' %} alt="Airtel" /></div>
+          <div id="mtn"><img src={% static 'mtn.png' %} alt="MTN" /></div>
+          <div id="glo"><img src={% static 'glo.png' %} alt="Glo" /></div>
+          <div id="9mobile"><img src={% static '9mobile.png' %} alt="Glo" /></div>
         </div>
       </div>
-      <hr /> <br/><br/>
-     <form method="POST">
+      <hr /> <br/>
+     <form method="POST" action="/purchase">
+       {% csrf_token %}
        <label for="network" class="labels">Network</label>
        <select class="selecting" id="network" name="network">
          <option value="" disabled selected="">Select NetWork</option>
@@ -24,20 +25,21 @@
        </select>
        <br />
        <label for="network" class="labels">Data Type</label>
-       <select class="sme-cop" id="network" name="network">
+       <select class="sme-cop" id="network" name="sme">
          <option value="" disabled selected="">Select Data Type</option>
          <option value="SME">SME</option>
          <option value="Corporation">Corporation</option>
        </select>
        <br/>
        <label for="network" class="labels">Data Plan</label>
-       <select class="data-amounts" id="network" name="network">
+       <select class="data-amounts" id="network" name="dataType">
        </select>
        <br />
        <label for="network" class="labels">Phone Number</label>
        <input placeholder="phone number" type="tel" name="phone" class="fixed-price" /><br/>
        <label for="network" class="labels">Amount</label>
-       <input placeholder="Amount to pay" class="fixed-price" id="fixed-price" type="text" value="" name="amount" readonly/>
+       <input placeholder="Amount to pay" class="fixed-price" id="fixed-price" type="text" value="" name="amount" readonly/> <br /><br />
+       <input class="submit-data" type="submit" value="Buy Data" />
      </form>
     </div>
    </div><br/><br /><br /><br /> <br />

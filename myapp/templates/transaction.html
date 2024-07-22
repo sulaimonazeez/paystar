@@ -1,3 +1,4 @@
+<!-- import Hr from '../../static/admin/js/vendor/select2/i18n/hr'; -->
 {% extends "extenders.html" %}
  {% load static %}
  {% block toggle %}
@@ -21,80 +22,22 @@
       </form>
     </div>
     <div class="search-result">
-      <a href="#" class="detail jst-content">
+      {% for data in dev %}
+         <a href="/myreciept/{{data.id}}" class="detail jst-content">
         <div class="for-wifi"><i class="fa fa-wifi"></i></div>
         <div class="data-wifi">
           <h4>Data</h4>
-          <p class="data-desc">Purchase of AIRTEL 3GB Corperation 30 days Plan for phone number 08080891605</p>
-          <small>Ref: 30561720711995</small>
+          <p class="data-desc">Purchase of {{data.data_amount}} 30 days Plan for phone number {{data.phone}}</p>
+          <small>Ref: {{data.transaction_id}}</small>
         </div>
         <div class="data-amt">
           <br />
-          <h4>N896</h4>
-          <small>12/07/2024</small><br />
+          <h4>{{data.charge}}</h4>
+          <small> {{ data.date }} </small><br />
           <i id="status" class="fa fa-check"></i>
         </div>
       </a>
-      <hr />
-      <a href="#" class="detail jst-content">
-        <div class="for-wifi"><i class="fa fa-wifi"></i></div>
-        <div class="data-wifi">
-          <h4>Wallet Topup</h4>
-          <p class="data-desc">Wallet funding of N5000 via Monnify banking transfer with a service charges of N50. Your wallet has been credit with 4950</p>
-          <small>Ref: MFY|07|20475835857|306</small>
-        </div>
-        <div class="data-amt">
-          <br />
-          <h4>N4950</h4>
-          <small>12/07/2024</small><br />
-          <i id="status" class="fa fa-check"></i>
-        </div>
-      </a>
-      <hr/>
-      <div class="jst-content">
-        <div class="for-wifi"><i class="fa fa-wifi"></i></div>
-        <div class="data-wifi">
-          <h4>Data</h4>
-          <p class="data-desc">Purchase of AIRTEL 2GB Corperation 30 days Plan for phone number 08106573182</p>
-          <small>Ref: 30561720711995</small>
-        </div>
-        <div class="data-amt">
-          <br />
-          <h4>N500</h4>
-          <small>12/07/2024</small><br />
-          <i id="status" class="fa fa-check"></i>
-        </div>
-      </div>
-      <hr/>
-      <div class="jst-content">
-        <div class="for-wifi"><i class="fa fa-wifi"></i></div>
-        <div class="data-wifi">
-          <h4>Wallet Topup</h4>
-          <p class="data-desc">Wallet funding of N5000 via Monnify banking transfer with a service charges of N50. Your wallet has been credit with 4950</p>
-          <small>Ref: MFY|07|20475835857|306</small>
-        </div>
-        <div class="data-amt">
-          <br />
-          <h4>N4950</h4>
-          <small>12/07/2024</small><br />
-          <i id="status" class="fa fa-check"></i>
-        </div>
-      </div>
-      <hr/>
-      <div class="jst-content">
-        <div class="for-wifi"><i class="fa fa-wifi"></i></div>
-        <div class="data-wifi">
-          <h4>Data</h4>
-          <p class="data-desc">Purchase of AIRTEL 3GB Corperation 30 days Plan for phone number 08080891605</p>
-          <small>Ref: 30561720711995</small>
-        </div>
-        <div class="data-amt">
-          <br />
-          <h4>N896</h4>
-          <small>12/07/2024</small><br />
-          <i id="status" class="fa fa-check"></i>
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </div>
   <br /><br /><br />
