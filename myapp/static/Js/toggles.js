@@ -114,6 +114,21 @@ $(document).ready(() =>{
         $('#fixed-price').val('');
       }
   });
+  $("#profiles").click(() =>{
+    $(".profiles").show();
+    $(".password").hide();
+    $(".pin").hide();
+  });
+  $("#password").click(()=>{
+    $(".profiles").hide();
+    $(".password").show();
+    $(".pin").hide();
+  })
+  $("#pin").click(()=>{
+    $(".profiles").hide();
+    $(".password").hide();
+    $(".pin").show();
+  })
   $("#airtel").click(()=> {
     $(".selecting").val("Airtel").change();
   });
@@ -132,9 +147,15 @@ $(document).ready(() =>{
     toGo.click();
   });
   $("#upgrade").click(() =>{
-    toGo.setAttribute("href", "/upgrade");
-    toGo.click();
+     let blur = $("#addBlur");
+     blur.addClass("addBlur");
+     $(".modal").show();
   });
+  $(".fa-close").click(()=>{
+    let blur = $("#addBlur");
+     blur.removeClass("addBlur");
+     $(".modal").hide();
+  })
   $("#myprofile").click(() =>{
     toGo.setAttribute("href", "/profile");
     toGo.click();

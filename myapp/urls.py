@@ -1,8 +1,9 @@
 from django.urls import path
 from . import views
 urlpatterns = [
-  path("", views.logged),
-  path("create", views.register),
+  path("", views.welcome),
+  path("accounts/login/", views.logged),
+  path("accounts/create/", views.register),
   path("home", views.home),
   path("generate_account", views.generate_virtual_account),
   path("logout", views.push_out),
@@ -11,6 +12,7 @@ urlpatterns = [
   path("nightmode", views.night_mode),
   path("databundle", views.purchase_data), 
   path("purchase", views.buy_bundle),
-  path("myreciept/<int:id>/", views.MyReciept.as_view()),
+  path("myreciept/<int:id>/", views.myreciept),
   path("invoice/<int:id>/", views.InvoicePDFView.as_view()),
+  path("profile", views.profile)
 ]

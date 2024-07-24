@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import VirtualAccounting, UserProfiles, Profile, Balance, Development
+from .models import VirtualAccounting, UserProfiles, Profile, Balance, Development, Download, AccountUpgrade, GeneratePin
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from .services import PaystackService
@@ -14,7 +14,9 @@ from django.views import View
 from django.urls import reverse
 
 
-
+def welcome(request):
+  return render(request, "home.html")
+@login_required
 def notification(request):
   is_night = None
   try:
@@ -24,6 +26,7 @@ def notification(request):
     is_night = False
   return render(request, "notification.html", {"nightmode":is_night})
   
+@login_required
 def transaction_history(request):
   is_night = None
   try:
@@ -93,7 +96,7 @@ def logged(request):
     else:
       return render(request, "login.html", {"error": "Invalid Crediential"})
   return render(request, 'login.html')
-
+@login_required
 def home(request):
   is_night = None
   try:
@@ -101,12 +104,48 @@ def home(request):
   except Exception as e:
     Balance.objects.create(user=request.user, balance=2000)
     balance = Balance.objects.get(user=request.user)
+      
   try:
     nightmode = UserProfiles.objects.get(user=request.user)
     is_night = nightmode.night_mode
   except Exception:
     is_night = False
-  return render(request, "dashboard.html", {"nightmode":is_night, "balance": balance})
+    
+  try:
+    is_upgrade, create = AccountUpgrade.objects.get_or_create(user=request.user)
+  except Exception as e:
+    return HttpResponse("Models Not Exist")
+  if request.method == "POST":
+    user = request.user
+    pin = request.POST.get("pin")
+    try:
+      my_model_instance, created = GeneratePin.objects.get_or_create(user=user)
+      if my_model_instance.pin == pin:
+        if balance.balance >= 1000:
+          with transaction.atomic():
+            # Deduct balance
+            balance.balance -= 1000
+            balance.save()
+          try:
+            myup, created = AccountUpgrade.objects.get_or_create(user=user)
+            myup.upgrade = True
+            myup.save()
+            return HttpResponse("Successful")
+          except Exception as e:
+            return HttpResponse("User Models Not Exist")
+        else:
+          return HttpResponse("Insufficient Found")
+      else:
+        # Incorrect PIN
+        return HttpResponse("Incorrect PIN")
+
+    except MyModel.DoesNotExist:
+      # Handle case where MyModel does not exist
+      return HttpResponse("User model does not exist")
+    except Exception as e:
+      # Handle other exceptions
+      return HttpResponse(f"An error occurred: {str(e)}")
+  return render(request, "dashboard.html", {"nightmode":is_night, "balance": balance, "upgrade": is_upgrade})
   
 
 logger = logging.getLogger(__name__)
@@ -139,9 +178,9 @@ def generate_virtual_account(request):
 
 def push_out(request):
   logout(request)
-  return redirect("/")
+  return redirect("/accounts/login")
   
-
+@login_required
 def night_mode(request):
     try:
         # Check if the user profile exists
@@ -163,6 +202,7 @@ def night_mode(request):
         return HttpResponse(f"An error occurred: {e}")
 
 
+@login_required
 def purchase_data(request):
   is_night = None
   try:
@@ -173,7 +213,7 @@ def purchase_data(request):
   return render(request, "data-purchase.html", {"nightmode":is_night})
   
   
-
+@login_required
 def buy_bundle(request):
     if request.method == "POST":
         try:
@@ -224,7 +264,7 @@ def buy_bundle(request):
             return HttpResponse(f"Error occurred: {str(e)}")
 
     return redirect("/home")
-
+"""
 class MyReciept(View):
     def get(self, request, id, *args, **kwargs):
         x = get_object_or_404(Development, id=id)
@@ -251,24 +291,43 @@ class MyReciept(View):
         # Render the initial content
         return render(request, 'reciept.html',{"reciept":x, "old":old_balance})
 
+"""
 
-
+@login_required
 def myreciept(request, id):
   x = get_object_or_404(Development, id=id)
   old_balance = x.amount + x.balance.balance
   return render(request, "reciept.html", {"reciept":x, "old":old_balance})
   
-
+  
 class InvoicePDFView(WeasyTemplateView):
     template_name = 'invoice.html'
-    pdf_filename = 'invoice.pdf'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         id = kwargs.get('id')
         x = get_object_or_404(Development, id=id)
         old_balance = x.amount + x.balance.balance
+        try:
+          downloaded = Download.objects.get(user=self.request.user)
+          downloaded.downloaded +=1
+          downloaded.save()
+          self.pdf_filename = f"reciept_pystar{downloaded.downloaded}.pdf"
+        except Exception as e:
+          Download.objects.create(user=self.request.user, downloaded=1)
+          self.pdf_filename = f"reciept_pystar{1}.pdf"
         context['reciept'] = x
         context['old'] = old_balance
         return context
-
+        
+        
+@login_required
+def profile(request):
+  try:
+    profiles = Profile.objects.get(user=request.user)
+  except Profile.DoesNotExist:
+    profiles = None
+    return HttpResponse("Models not exists")
+  except Exception as e:
+    return HttpResponse(f"Error occurred: {e}")
+  return render(request, "profile.html", {"profile":profiles})

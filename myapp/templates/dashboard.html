@@ -1,7 +1,7 @@
 {% extends "extenders.html" %}
 {% load static %}
 {% block content %}
-  <div class="container-fluid">
+  <div id="addBlur" class="container-fluid">
     <div class="box-header">
       <div class="inner-flex">
         <h3>Hi, {{user.first_name}}</h3>
@@ -50,10 +50,43 @@
         <p>Monnify is Not Available Right Now Our Team is Working hard to Fixed That Out Thanks. </p>
         <button style="text-align: center">Generate Account</button>
       </div>
-      
     </div>
   </div>
-  <br /><br /><br /><br /><br />
+  <div class="container-fluid">
+  {% if upgrade.upgrade %}
+    <div class="modal">
+      <div class="d-flex justify">
+        <div><p style="color: green;font-weight:bold">Successful Upgraded</p><h1 class='thanks'>Thanks For Joining Our Vendor!!!</h1></div>
+        <div class="close">
+          <i class="fa fa-close"></i>
+        </div>
+      </div>
+      <div class="vendors">
+        <p>Your Account is Now Successful Upgrade</p>
+        <p>Your Data Discounts: MTN Data -3%, Airtel Data -3% Glo Data -2%</p>
+      </div>
+    </div>
+  {% else %}
+   <div class="modal">
+      <div class="d-flex justify">
+        <div><p>Confirm Transaction</p><h1 class="tk">Upgrade</h1></div>
+        <div class="close">
+          <i class="fa fa-close"></i>
+        </div>
+      </div>
+      <div class="vendor">
+        <p>You are about to upgrade to an Agent Account. You can view our pricing page for details about the discounts available for Agents.</p>
+        <p>You would be charged a total of N2000 for this service. To continue, enter your transaction pin below.</p>
+        <form method="post" autocomplete="false">
+          {% csrf_token %}
+          <label for="network" class="labeled">Transaction Pin</label>
+          <input autocomplete="off" placeholder="Default Pin 1111" type="tel" name="pin" class="fixed-price" /><br/><br />
+          <input class="submit-data" type="submit" value="Continue" />
+        </form>
+      </div>
+    </div>
+    {% endif %}
+  </div>
 {% endblock %}
 
 {% block toggle %}

@@ -1,0 +1,59 @@
+{% extends "extenders.html" %}
+
+{% load static %}
+
+{% block content %}
+  <div class="container-fluid">
+    <div class="profile-header">
+      <div class="payment-toggle">
+        <a id="profiles" class="ex-1">Profile</a>
+        <a id="password">Password</a>
+        <a id="pin" class="ex-2">Pin</a>
+      </div>
+    <div class="profiles">
+      <div class="user-profiles">
+        <p style="color: #B59410"><small>Account Details</small></p>
+        <h3 class="ref">Basic Information</h3>
+        <div>
+          <div class="m-flex">
+            <i class="fa fa-user"></i>
+            <p><strong>Name: </strong>{{profile.user.first_name}} {{profile.user.last_name}}</p>
+          </div>
+          <div class="m-flex">
+            <i class="fa fa-envelope"></i>
+            <p><strong>Email: </strong>{{profile.user.email}}</p>
+          </div>
+          <div class="m-flex">
+            <i class="fa fa-user"></i>
+            <p><strong>Phone: </strong>{{profile.phone_number}}</p>
+          </div>
+          <div class="m-flex">
+            <i class="fa fa-globe"></i>
+            <p><strong>NIN: </strong>{{profile.nin}}</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p style="color: #B59410"><small>Referral</small></p>
+        <h3 class="ref">Referral Link</h3>
+        <small class="url">https://127.0.0.1:8000/mobile/register/?referral={{profile.phone_number}}</small><br /><br />
+        <div>
+          <button class="btn-profile cp">Copy Link</button>
+          <button class="btn-profile cm">View Commission</button>
+        </div>
+      </div>
+    </div>
+      <div class="password">
+        <h1>Password</h1>
+      </div>
+      <div class="pin">
+        <h1>Pin</h1>
+      </div>
+    </div>
+  </div>
+  <br /><br />
+{% endblock %}
+
+{% block toggle %}
+  <script src={% static "Js/toggles.js" %}></script>
+{% endblock %}
