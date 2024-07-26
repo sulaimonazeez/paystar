@@ -12,6 +12,12 @@ from django.db import transaction
 from django_weasyprint import WeasyTemplateView
 from django.views import View
 from django.urls import reverse
+from django.contrib.auth import update_session_auth_hash
+from django.views.decorators.http import require_POST
+
+
+
+
 
 
 def welcome(request):
@@ -80,6 +86,11 @@ def register(request):
       return redirect("/create")
   return render(request, 'create.html')
 
+
+
+
+
+
 def logged(request):
   #check if user is already authenticated
   if request.user.is_authenticated:
@@ -96,9 +107,56 @@ def logged(request):
     else:
       return render(request, "login.html", {"error": "Invalid Crediential"})
   return render(request, 'login.html')
+  
+  
+  
+  
+  
+  
 @login_required
 def home(request):
   is_night = None
+  funds = False
+  sufficient = False
+  pin = False
+  message = ""
+  success = ""
+  try:
+    uprades = request.GET.get("upgrade")
+    if uprades == "true":
+      funds = True
+      message = "Successful Upgrade to Vendor"
+      success = "Successful"
+      
+    else:
+      print("wrong parameter")
+  except Exception:
+    print("Not Allowed")
+    
+  try:
+    suff = request.GET.get("sufficient")
+    if suff == "false":
+      sufficient = True
+      message = "Insufficient Fund please add fund"
+      success = "ERROR!!"
+      
+    else:
+      print("wrong parameter")
+  except Exception:
+    print("Not Allowed")
+    
+    
+  try:
+    pi = request.GET.get("pwd")
+    if pi == "false":
+      pin = True
+      message = "Incorrect Password please try again"
+      success = "ERROR!!"
+      
+    else:
+      print("wrong parameter")
+  except Exception:
+    print("Not Allowed")
   try:
     balance = Balance.objects.get(user=request.user)
   except Exception as e:
@@ -130,14 +188,17 @@ def home(request):
             myup, created = AccountUpgrade.objects.get_or_create(user=user)
             myup.upgrade = True
             myup.save()
-            return HttpResponse("Successful")
+            message = "Account Successful Upgrade!!"
+            return redirect("/home?upgrade=true")
           except Exception as e:
             return HttpResponse("User Models Not Exist")
         else:
-          return HttpResponse("Insufficient Found")
+          success = "ERROR!!"
+          message = "Insufficient Balance add funds and try again"
+          return redirect("/home?sufficient=false")
       else:
-        # Incorrect PIN
-        return HttpResponse("Incorrect PIN")
+        message = "Incorrect Password please try again"
+        return redirect("/home?pwd=false")
 
     except MyModel.DoesNotExist:
       # Handle case where MyModel does not exist
@@ -145,11 +206,15 @@ def home(request):
     except Exception as e:
       # Handle other exceptions
       return HttpResponse(f"An error occurred: {str(e)}")
-  return render(request, "dashboard.html", {"nightmode":is_night, "balance": balance, "upgrade": is_upgrade})
+  return render(request, "dashboard.html", {"nightmode":is_night, "balance": balance, "upgrade": is_upgrade, "fund": funds, "success": success, "message": message, "sufficient":sufficient, "pin":pin})
   
 
-logger = logging.getLogger(__name__)
 
+
+
+
+
+logger = logging.getLogger(__name__)
 @login_required
 def generate_virtual_account(request):
     user = request.user
@@ -169,12 +234,18 @@ def generate_virtual_account(request):
             logger.debug(e)
             logger.error(f"Invalid response data: {virtual_account_data}")
             print(e)
-            return HttpResponse("Failed to create virtual account. Invalid response data.",e)  # Provide a user-friendly error message
+            return HttpResponse("Failed to create virtual account. Invalid response data.",e)  # Provide a user-friendly error 
     except Exception as e:
         logger.error(f"Failed to create virtual account: {e}")
         logger.debug(e)
         print(e)
-        return HttpResponse("An error occurred.")  # Provide a user-friendly error message
+        return HttpResponse("An error occurred.")  # Provide a user-friendly error
+
+
+
+
+
+
 
 def push_out(request):
   logout(request)
@@ -202,15 +273,27 @@ def night_mode(request):
         return HttpResponse(f"An error occurred: {e}")
 
 
+
+
+
+
+
+
 @login_required
 def purchase_data(request):
   is_night = None
+  pin = ""
+  try:
+    x, y = GeneratePin.objects.get_or_create(user=request.user)
+    pin = x.pin
+  except Exception:
+    return HttpResponse("Models not exist")
   try:
     nightmode = UserProfiles.objects.get(user=request.user)
     is_night = nightmode.night_mode
   except Exception:
     is_night = False
-  return render(request, "data-purchase.html", {"nightmode":is_night})
+  return render(request, "data-purchase.html", {"nightmode":is_night, "pin":pin})
   
   
 @login_required
@@ -264,6 +347,14 @@ def buy_bundle(request):
             return HttpResponse(f"Error occurred: {str(e)}")
 
     return redirect("/home")
+    
+    
+    
+    
+    
+    
+    
+    
 """
 class MyReciept(View):
     def get(self, request, id, *args, **kwargs):
@@ -299,7 +390,13 @@ def myreciept(request, id):
   old_balance = x.amount + x.balance.balance
   return render(request, "reciept.html", {"reciept":x, "old":old_balance})
   
-  
+
+
+
+
+
+
+
 class InvoicePDFView(WeasyTemplateView):
     template_name = 'invoice.html'
 
@@ -320,9 +417,61 @@ class InvoicePDFView(WeasyTemplateView):
         context['old'] = old_balance
         return context
         
-        
+
+
+
+
+
+
+    
 @login_required
 def profile(request):
+  success = ""
+  #message to display in the templates
+  message = ""
+  #exist
+  same_password = False
+  #currentmatch
+  old_password = False
+  #to handle both sucessful and check new password with retype password 
+  ischange = False
+  is_password_match = False
+  try:
+    check = request.GET.get("ischange")
+    if check == "true":
+      ischange = True
+      message = "Password successfully change"
+      success = "Successful"
+    elif check == "false":
+      is_password_match  = True
+      message = "New Password is not match with confirm password"
+      success = "ERROR!!"
+    else:
+      ischange = False
+  except Exception:
+    print("ischange not available")
+    
+  try:
+    check = request.GET.get("currentmatch")
+    if check == "false":
+      old_password = True
+      message = "Password not match with the old password"
+      success = "ERROR!!"
+    else:
+      old_password  = False
+  except Exception:
+    print("ischange not available")
+    
+  try:
+    check = request.GET.get("exist")
+    if check == "true":
+      same_password = True
+      message = "Cannot use same password"
+      success = "ERROR!!"
+    else:
+      same_password  = False
+  except Exception:
+    print("ischange not available")
   try:
     profiles = Profile.objects.get(user=request.user)
   except Profile.DoesNotExist:
@@ -330,4 +479,40 @@ def profile(request):
     return HttpResponse("Models not exists")
   except Exception as e:
     return HttpResponse(f"Error occurred: {e}")
-  return render(request, "profile.html", {"profile":profiles})
+  return render(request, "profile.html", {"profile":profiles, "message": message, "ischange": ischange, "old_password": old_password, "same_password": same_password, "is_match": is_password_match, "success":success})
+  
+  
+  
+  
+  
+  
+  
+  
+  
+@login_required
+@require_POST
+def change_password(request):
+    current_password = request.POST.get('current_password')
+    new_password = request.POST.get('new_password')
+    confirm_password = request.POST.get('confirm_password')
+    user = request.user
+    
+    if (new_password != confirm_password) and len(new_password) >= 2:
+      return redirect("/profile?ischange=false")
+    
+    if user.check_password(new_password):
+      return redirect("/profile?exist=true")
+    # Check the current password
+    if not user.check_password(current_password):
+        messages.error(request, "Current password is incorrect.")
+        return redirect('/profile?currentmatch=false')  # Redirect to the password change page
+    
+    # Set and save the new password
+    user.set_password(new_password)
+    user.save()
+    
+    # Update the session to prevent logout
+    update_session_auth_hash(request, user)
+    
+    messages.success(request, "Password changed successfully.")
+    return redirect('/profile?ischange=true')  # Redirect to a success page

@@ -14,7 +14,7 @@
         </div>
       </div>
       <hr /> <br/>
-     <form method="POST" action="/purchase">
+     <form method="POST" action="/purchase" id="submitor">
        {% csrf_token %}
        <label for="network" class="labels">Network</label>
        <select class="selecting" id="network" name="network">
@@ -42,10 +42,24 @@
        <input class="submit-data" type="submit" value="Buy Data" />
      </form>
     </div>
+     <div class="modaled">
+      <div class="vendors">
+        <p style="color: blue"><small>Confirm Transaction</small></p>
+        <h3>Continue?</h3>
+        <form autocomplete="false" id="make">
+          {% csrf_token %}
+          <label for="network" class="labeled">Transaction Pin</label>
+          <input autocomplete="off" placeholder="Default Pin 1111" type="tel" name="pin" class="fixed-price" id="pins"/><br/><br />
+          <input class="btn-submit" type="submit" value="Continue" />
+        </form>
+      </div>
+    </div>
    </div><br/><br /><br /><br /> <br />
 {% endblock %}
 
 {% block toggle %}
    <script src={% static "Js/toggles.js" %}></script>
-   <script src={% static "Js/purchase.js" %}></script>
+   <script>
+     alert("{{ pin|escapejs}}");
+   </script>
 {% endblock %}

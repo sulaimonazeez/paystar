@@ -123,14 +123,18 @@ $(document).ready(() =>{
     $(".profiles").hide();
     $(".password").show();
     $(".pin").hide();
-  })
+  });
   $("#pin").click(()=>{
     $(".profiles").hide();
     $(".password").hide();
     $(".pin").show();
-  })
+  });
   $("#airtel").click(()=> {
     $(".selecting").val("Airtel").change();
+  });
+  
+  $(".close-message").click(() =>{
+    $(".alert").hide();
   });
   $("#mtn").click(()=> {
     $(".selecting").val("MTN").change();
@@ -141,6 +145,19 @@ $(document).ready(() =>{
   $("#9mobile").click(()=> {
     $(".selecting").val("GLO").change();
   });
+  
+  let pin = "{{ pin|escapejs }}"
+  $("#submitor").on("submit", function(event) {
+     event.preventDefault();
+   });
+     $("#make").on("submit", function(event) {
+     event.preventDefault();
+     alert(pin);
+   });
+   
+
+   
+   
   let toGo = document.createElement("a");
   $("#data").click(() =>{
     toGo.setAttribute("href", "/databundle");

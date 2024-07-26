@@ -77,7 +77,7 @@
       <div class="vendor">
         <p>You are about to upgrade to an Agent Account. You can view our pricing page for details about the discounts available for Agents.</p>
         <p>You would be charged a total of N2000 for this service. To continue, enter your transaction pin below.</p>
-        <form method="post" autocomplete="false">
+        <form method="post" action="/home?uprade=true" autocomplete="false">
           {% csrf_token %}
           <label for="network" class="labeled">Transaction Pin</label>
           <input autocomplete="off" placeholder="Default Pin 1111" type="tel" name="pin" class="fixed-price" /><br/><br />
@@ -85,6 +85,18 @@
         </form>
       </div>
     </div>
+    {% endif %}
+    
+    {% if fund %}
+      {% include "success.html" %}
+    {% endif %}
+    
+    {% if pin %}
+       {% include "message.html" %}
+    {% endif %}
+    
+    {% if sufficient %}
+      {% include "message.html" %}
     {% endif %}
   </div>
 {% endblock %}

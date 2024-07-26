@@ -133,6 +133,14 @@ body {
   flex: 1;
   flex-basis: 20%;
 }
+
+.successful {
+  background-color: green;
+}
+
+.successful > i {
+  color: green;
+}
 .vd{
   position: relative;
   top: -2.5vw;
@@ -148,7 +156,7 @@ body {
   background-color: #B59410;
   padding: 3vw;
   color: white;
-  font-weight: 777;
+  font-weight: bold;
   border-radius: 50vw;
 }
 .payment-toggle {
@@ -159,13 +167,13 @@ body {
 }
 .payment-toggle > a {
   text-decoration: none;
-  color: white;
+  color: black;
   padding: 2vw;
   width: 100%;
-  margin: 0auto;
+  margin: auto;
   text-align: center;
-  color: black;
   border: solid 0.5px grey;
+  cursor: pointer;
 }
 .payment-toggle > .ex-1 {
   border-radius: 2vw 0 0 2vw;
@@ -323,7 +331,6 @@ form > .labels {
   color: black;
   margin: 2vw;
   margin-top: 6vw;
-  padding-bottom: 5vw;
   padding-bottom: 5vw;
 }
 
@@ -556,7 +563,6 @@ form > .labels {
   width: 80%;
   padding: 2vw;
   border-radius: 4vw;
-  display: block;
   height: 120vw;
   position: fixed;
   left: 9%;
@@ -682,7 +688,7 @@ div > .url {
 }
 
 .cp {
-  background-color: red;
+  background-color: #8B0A1A;
   color: #fff;
   border: none;
 }
@@ -700,4 +706,69 @@ div > .url {
 
 .password, .pin {
   display: none;
+}
+
+.alert {
+  background-color: #8B0A1A;
+  color: white;
+  text-align: center;
+  padding: 5vw;
+  width: 95%;
+  position: fixed;
+  left: -3%;
+  border-radius: 15vw 15vw 0 0;
+  top: 50%;
+  z-index: 9999999999999999;
+  
+  
+  
+}
+
+.alert > i {
+  background-color: white;
+  padding: 5vw;
+  color: #8B0A1A;
+  font-size: 10vw;
+  border-radius: 50vw;
+  width: 12%;
+}
+
+
+.alert > button {
+  border: none;
+  background-color: white;
+  padding: 3vw;
+  color: black;
+  border-radius: 2vw;
+  width: 45vw;
+  font-weight: bold;
+}
+
+.alert > h2 {
+  font-weight: bold;
+}
+
+
+.modaled {
+  background-color: white;
+  width: 80%;
+  padding: 2vw;
+  border-radius: 4vw;
+  position: relative;
+  left: 9%;
+  top: 15%;
+  z-index: 9999999;
+  display: block;
+  padding-bottom: 5vw;
+}
+
+
+.btn-submit{
+  background-color: blue;
+  color: white;
+  width: 95%;
+  padding: 3vw;
+  font-weight: bold;
+  border: none;
+  border-radius: 2vw;
 }

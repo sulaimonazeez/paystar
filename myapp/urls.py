@@ -14,5 +14,6 @@ urlpatterns = [
   path("purchase", views.buy_bundle),
   path("myreciept/<int:id>/", views.myreciept),
   path("invoice/<int:id>/", views.InvoicePDFView.as_view()),
-  path("profile", views.profile)
+  path("profile", views.profile),
+  path("change/password/", views.change_password),
 ]

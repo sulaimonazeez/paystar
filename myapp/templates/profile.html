@@ -44,12 +44,53 @@
       </div>
     </div>
       <div class="password">
-        <h1>Password</h1>
+        <p style="color: #B59410"><small>Update Login Details</small></p>
+        <h3 class="ref">Login Details</h3>
+        <form method="POST" action="/change/password/">
+          {% csrf_token %}
+          <label style="color: #B59410" for="pwd-old" class="labels"><small>Old Password </small></label>
+          <input style="border: solid 1px lightgrey" placeholder="Old Password" type="password" name="current_password" class="fixed-price" id="pwd-old" /><br/>
+          
+          <label style="color: #B59410" for="pwd-old" class="labels"><small>New Password </small></label>
+          <input style="border: solid 1px lightgrey" placeholder="New Password" type="password" name="new_password" class="fixed-price" id="pwd-new" /><br/>
+          
+          <label style="color: #B59410" for="pwd-old" class="labels"><small>Retype password</small></label>
+          <input style="border: solid 1px lightgrey" placeholder="Retype Password" type="password" name="confirm_password" class="fixed-price" id="pwd-retype" /><br/><br />
+          <input style="background-color: #B59410" class="submit-data" type="submit" value="Update Password" />
+        </form>
       </div>
       <div class="pin">
-        <h1>Pin</h1>
+        <p style="color: #B59410"><small>Update Login Details</small></p>
+        <h3 class="ref">Login Details</h3>
+        <p></p>
+        <form method="POST" action="/change/pin">
+          <label style="color: #B59410" for="pwd-old" class="labels"><small>Old Pin </small></label>
+          <input style="border: solid 1px lightgrey" placeholder="Old Pin" type="number" name="oldpin" class="fixed-price" id="pwd-old" /><br/>
+          
+          <label style="color: #B59410" for="pwd-old" class="labels"><small>New Pin </small></label>
+          <input style="border: solid 1px lightgrey" placeholder="New Pin" type="number" name="newpin" class="fixed-price" id="pwd-new" /><br/>
+          
+          <label style="color: #B59410" for="pwd-old" class="labels"><small>Retype Pin</small></label>
+          <input style="border: solid 1px lightgrey" placeholder="Retype Pin" type="number" name="retypepin" class="fixed-price" id="pwd-retype" /><br/><br />
+          <input style="background-color: #B59410" class="submit-data" type="submit" value="Update Pin" />
+        </form>
       </div>
     </div>
+    {% if ischange %}
+      {% include "success.html" %}
+    {% endif %}
+    
+    {% if is_match %}
+      {% include "message.html" %}
+    {% endif %}
+    
+    {% if old_password %}
+      {% include "message.html" %}
+    {% endif %}
+    
+    {% if same_password %}
+      {% include "message.html" %}
+    {% endif %}
   </div>
   <br /><br />
 {% endblock %}

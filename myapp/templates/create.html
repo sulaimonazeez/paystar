@@ -11,7 +11,7 @@
     <div class="extr outer-container">
       <div class="container-fluid">
         <h2>Create Account</h2>
-        <form method="POST" action="/create">
+        <form method="POST" action="/accounts/create/">
           {% csrf_token %}
           <input class="feild" type="text" name="username" placeholder="Username" required=""/><br/>
           <input class="feild" type="tel" name="phone_number" placeholder="Phone Number" required=""/><br/>
