@@ -15,9 +15,9 @@
       <h4>Transactions</h4>
       <p class="to-grey">Your last 100 transactions.</p>
       <p class="to-red">Click on the transaction to view the details.</p>
-      <form method="post">
+      <form method="GET" action="/finder/">
         {% csrf_token %}
-        <input type="text" name="search" placeholder="Search" class="search"/> <br /> <br />
+        <input type="text" name="q" placeholder="Search" class="search"/> <br /> <br />
         <input class="submit" type="submit" value="Search" />
       </form>
     </div>

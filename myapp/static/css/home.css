@@ -17,9 +17,9 @@ body {
   z-index:9999999999;
 }
 .header > i {
-  font-size: 20px;
+  font-size: 1.25rem;
   position: relative;
-  top: 3.6vw;
+  top: 1rem;
   left: 3%;
   z-index: 999999999;
 }
@@ -28,7 +28,7 @@ body {
   left: -70%;
 }
 .outter-head > i{
-  font-size: 20px;
+  font-size: 1.25;
   position: relative;
   left: -5%;
   top: 25%;
@@ -49,19 +49,19 @@ body {
   text-align: center;
 }
 .down-fixed > * {
-  padding: 3vw;
+  padding: 1rem;
 }
 .container-fluid {
-  margin-top: 20vw;
+  margin-top: 4.5rem;
 }
 .container-fluid > .box-header {
   background: linear-gradient(#B59410,#000);
   width: 92%;
-  border-radius: 5vw;
-  height: 45vw;
-  padding: 2vw;
+  border-radius: 1rem;
+  height: 11rem;
+  padding: 0.5rem;
   color: white;
-  margin: 2vw;
+  margin: 0.5rem;
   font-weight: 700;
   position: relative;
 }
@@ -73,34 +73,34 @@ body {
 }
 .wallet-tx {
   position: relative;
-  top: -14%;
+  top: -0.5rem;
 }
 .users > i {
   background-color: white;
   color: #B59410;
-  padding: 3vw;
-  font-size: 26px;
-  border-radius: 4vw;
+  padding: 1.25vw;
+  font-size: 2em;
+  border-radius: 1rem;
 }
 
 .users > h5 {
   position: relative;
-  top: -17%;
+  top: -1rem;
 }
 .telegram {
   position: relative;
-  top: -10vw;
+  top: -2.5rem;
 }
 .white-header {
   background-color: white;
   width: 92%;
-  border-radius: 5vw;
-  height: 45vw;
-  padding: 2vw;
+  border-radius: 1rem;
+  height: 42%;
+  padding: 0.5rem;
   color: black;
-  margin: 2vw;
-  margin-top: 6vw;
-  padding-bottom: 5vw;
+  margin: 0.5rem;
+  margin-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 .white-header > * {
   margin-top: -0.1%;
@@ -154,13 +154,13 @@ body {
 .no-play {
   text-decoration: none;
   background-color: #B59410;
-  padding: 3vw;
+  padding: 0.75rem;
   color: white;
   font-weight: bold;
   border-radius: 50vw;
 }
 .payment-toggle {
-  padding: 3px;
+  padding: 0.25rem;
   display: flex;
   justify-content: space-between;
   
@@ -168,7 +168,7 @@ body {
 .payment-toggle > a {
   text-decoration: none;
   color: black;
-  padding: 2vw;
+  padding: 0.5rem;
   width: 100%;
   margin: auto;
   text-align: center;
@@ -186,11 +186,11 @@ body {
 .white-met {
   background-color: white;
   width: 92%;
-  border-radius: 5vw;
-  height: 45vw;
-  padding: 2vw;
-  margin: 2vw;
-  margin-top: 6vw;
+  border-radius: 1.5rem;
+  height: 42%;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  margin-top: 2.5rem;
   text-align: center;
 }
 .payment-toggle > a:hover{
@@ -213,7 +213,7 @@ body {
   background-color: #B59410;
   color: white;
   border-radius: 50vw;
-  padding: 3vw;
+  padding: 0.75rem;
   text-align: center;
 }
 
@@ -231,18 +231,18 @@ body {
   background-color: #B59410;
   color: white;
   border-radius: 50vw;
-  padding: 3vw;
+  padding: 0.75rem;
   text-align: center;
 }
 
 .small-modal {
   background-color: red;
   color: white;
-  padding: 1vw;
+  padding: 0.25rem;
   border-radius: 2vw;
   position: relative;
-  right: 3vw;
-  font-size: 10px;
+  right: 1rem;
+  font-size: 0.5rem;
 }
 
 .purchase-form {
@@ -258,17 +258,17 @@ body {
 
 #network {
   width: 95%;
-  padding: 4vw;
+  padding: 1rem;
   background-color: lightgrey;
   color: grey;
-  border-radius: 2vw;
+  border-radius: 0.5rem;
   outline: none;
 }
 
 .fixed-price {
   width: 85%;
-  padding: 4vw;
-  border-radius: 2vw;
+  padding: 1em;
+  border-radius: 0.5rem;
   outline: none;
 }
 
@@ -294,16 +294,18 @@ body {
   text-align: center;
   padding-top: 1vw;
   padding-bottom: 1vw;
+  padding: 2vw;
+ border-radius: 2vw;
 }
 .alternative-choose > div > img {
-  width: 70%;
+  width: 3rem;
 }
 
 form > .labels {
   background-color: white;
   position: relative;
-  top: 2vw;
-  left: 2vw;
+  top: 0.5rem;
+  left: 0.60rem;
   padding: 0.7vw;
   font-weight: bold;
   font-size: 12px;
@@ -318,10 +320,10 @@ form > .labels {
   background-color: blue;
   color: white;
   width: 95%;
-  padding: 3vw;
+  padding: 0.75rem;
   font-weight: bold;
   border: none;
-  border-radius: 2vw;
+  border-radius: 0.75rem;
 }
 .parent-reciept > .reciept {
   background-color: white;
@@ -342,9 +344,9 @@ form > .labels {
 .reciept-head > i {
   color: green;
   border: solid 3px green;
-  padding: 4vw;
+  padding: 1rem;
   border-radius: 50vw;
-  font-size: 13vw;
+  font-size: 2.5em;
   text-align: center;
 }
 
@@ -551,7 +553,7 @@ form > .labels {
 .user-reciept {
   color: white;
   background-color: green;
-  padding: 3vw;
+  padding: 0.75rem;
   border-radius: 2vw;
   border:none;
   text-decoration: none;
@@ -645,12 +647,13 @@ form > .labeled {
   background-color: lightgrey;
   color: #B59410;
   border-radius: 50vw;
-  width: 6vw;
-  height: 5vw;
-  padding: 1vw;
+  width: 0.75rem;
+  height: 0.76rem;
+  padding: 1rem;
   text-align: center;
   position: relative;
-  top: 2.5vw;
+  top: 0.40rem;
+  font-size: 1em;
 }
 
 .m-flex > p {
@@ -683,7 +686,7 @@ div > .url {
 }
 
 .btn-profile {
-  padding: 3vw;
+  padding: 1rem;
   border-radius: 2vw;
 }
 
@@ -717,8 +720,9 @@ div > .url {
   position: fixed;
   left: -3%;
   border-radius: 15vw 15vw 0 0;
-  top: 50%;
+  /*top: 50%; */
   z-index: 9999999999999999;
+  bottom: 0;
   
   
   
@@ -754,11 +758,11 @@ div > .url {
   width: 80%;
   padding: 2vw;
   border-radius: 4vw;
-  position: relative;
+  position: fixed;
   left: 9%;
   top: 15%;
   z-index: 9999999;
-  display: block;
+  display: none;
   padding-bottom: 5vw;
 }
 
@@ -771,4 +775,37 @@ div > .url {
   font-weight: bold;
   border: none;
   border-radius: 2vw;
+}
+
+.prt {
+  display: none;
+}
+
+.error-msg > .alert{
+  display: none;
+}
+
+
+
+
+
+/* Big Screen Mode activated lolzzz*/
+
+@media only screen and (min-width: 768px) {
+  .fixed-price {
+    width: 91.7%;
+  }
+ .profile-header {
+   margin: 0.75rem;
+   padding: 0.75rem;
+ }
+ .container-fluid > .box-header  {
+   margin: 1.1rem;
+   padding: 1.1rem;
+ }
+ 
+ .white-header {
+   padding: 1.1rem;
+   margin: 1.1rem;
+ }
 }

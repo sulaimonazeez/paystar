@@ -5,6 +5,38 @@
     <title>Homepage</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .messages {
+    list-style-type: none;
+    padding: 0;
+}
+.messages .success {
+    color: green;
+    background-color: #dff0d8;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    z-index: 999999999999;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    left: 0.1rem;
+    font-weight: bold;
+}
+.messages .error {
+    color: red;
+    background-color: #f2dede;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    z-index: 9999999999999;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    left: 0.1rem;
+    font-weight: bold;
+}
+    </style>
     {% if nightmode %}
       <link rel="stylesheet" href={% static "css/nightmode/home.css" %} />
     {% else %}
@@ -21,6 +53,15 @@
      {% block toggle %} {% endblock %}
   </head>
   <body>
+    <div id="messages">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
     <div style="z-index:999999999" class="header">
       <i class="fa fa-home"></i>
       <p style="z-index:9999999"><strong class="mt-3">Paystar</strong></p>
@@ -33,7 +74,7 @@
     <div class="container-fluid">
       {% block content %} {% endblock %}
     </div>
-    <div class="down-fixed">
+    <div class="down-fixed" style="z-index: 9999999999">
       <div id="click1">
         <i class="fa fa-home"></i><br />
         <small>Home</small>
@@ -52,5 +93,13 @@
       </div>
     </div>
     <script src={% static "Js/extender.js" %}></script>
+    <script>
+      setTimeout(function() {
+        var messages = document.getElementById('messages');
+        if (messages) {
+          messages.style.display = 'none';
+        }
+      }, 5000);
+    </script>
   </body>
 </html>

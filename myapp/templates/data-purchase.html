@@ -17,7 +17,7 @@
      <form method="POST" action="/purchase" id="submitor">
        {% csrf_token %}
        <label for="network" class="labels">Network</label>
-       <select class="selecting" id="network" name="network">
+       <select required class="selecting" id="network" name="network">
          <option value="" disabled selected="">Select NetWork</option>
          <option value="Airtel">Airtel</option>
          <option value="MTN">MTN</option>
@@ -25,41 +25,121 @@
        </select>
        <br />
        <label for="network" class="labels">Data Type</label>
-       <select class="sme-cop" id="network" name="sme">
+       <select required class="sme-cop" id="network" name="sme">
          <option value="" disabled selected="">Select Data Type</option>
          <option value="SME">SME</option>
          <option value="Corporation">Corporation</option>
        </select>
        <br/>
        <label for="network" class="labels">Data Plan</label>
-       <select class="data-amounts" id="network" name="dataType">
+       <select required class="data-amounts" id="network" name="dataType">
        </select>
        <br />
        <label for="network" class="labels">Phone Number</label>
-       <input placeholder="phone number" type="tel" name="phone" class="fixed-price" /><br/>
+       <input required placeholder="phone number" type="tel" name="phone" class="fixed-price" /><br/>
        <label for="network" class="labels">Amount</label>
        <input placeholder="Amount to pay" class="fixed-price" id="fixed-price" type="text" value="" name="amount" readonly/> <br /><br />
-       <input class="submit-data" type="submit" value="Buy Data" />
+       <input class="submit-data" id="trigger" type="submit" value="Buy Data" />
      </form>
     </div>
-     <div class="modaled">
+     <div class="modaled" style="position:fixed; top: 30%">
       <div class="vendors">
         <p style="color: blue"><small>Confirm Transaction</small></p>
         <h3>Continue?</h3>
         <form autocomplete="false" id="make">
           {% csrf_token %}
           <label for="network" class="labeled">Transaction Pin</label>
-          <input autocomplete="off" placeholder="Default Pin 1111" type="tel" name="pin" class="fixed-price" id="pins"/><br/><br />
+          <input required autocomplete="off" placeholder="Default Pin 1111" type="number" name="pin" class="fixed-price" id="pins"/><br/><br />
           <input class="btn-submit" type="submit" value="Continue" />
         </form>
       </div>
     </div>
+    <div class="prt">
+      {% include "message.html" %}
+    </div>
+    
+    <div class="error-msg">
+      {% include "validator.html" %}
+    </div>
+    
    </div><br/><br /><br /><br /> <br />
 {% endblock %}
 
 {% block toggle %}
    <script src={% static "Js/toggles.js" %}></script>
    <script>
-     alert("{{ pin|escapejs}}");
+     $(document).ready(() =>{
+       var isOpen = false;
+       let isValidate = "{{ pin|escapejs}}";
+       let bala = "{{ balanced|escapejs }}";
+       $(".btn-submit").on("click", ()=>{
+         let cRC = $("#pins").val();
+         let str = cRC.toString();
+         if (str === isValidate) {
+           $(".modaled").hide();
+           $(".purchase-form").removeClass("addBlur");
+           $("#submitor").off("submit").submit(function(event) {
+             //event.preventDefault();
+             var formData = $(this).serializeArray();
+             var isValid = true;
+             var errorMessage = "";
+             //let amt = $("#fixed-price").val();
+             //let amount = parseInt(amt.slice(1), 10);
+             $.each(formData, function(index, field) {
+               if (!field.value.trim()) {
+                 isValid = false;
+                 errorMessage += field.name + " cannot be empty.\n";
+               }
+               if (field.name === "amount") {
+                 let amt = field.value;
+                 let amounts = amt.slice(1);
+                 if (amounts > bala) {
+                   errorMessage = "Insufficient Balance please add funds";
+                   isValid = false;
+                 }
+               }
+               if (field.name === "sme") {
+                 if (field.value === null || field.value === undefined || field.value.trim() === "") {
+                   isValid = false;
+                   errorMessage += "Please select a valid option for Data Type.\n";
+                   
+                 }
+               }
+               if (field.name === "dataType") {
+                 if (field.value === null || field.value === undefined || field.value.trim() === "") {
+                   isValid = false;
+                   errorMessage += "Please select a valid option for Data Type.\n";
+                   
+                 }
+               }
+             });
+             if (!isValid) {
+               $(".user-message").text(errorMessage);
+               $(".alert").show();
+               event.preventDefault();
+             } else {
+               //nothing to show
+             }
+           });
+           $("#submitor").submit();
+         }
+         else {
+           $(".prt").show();
+           $(".modaled").hide();
+           $(".purchase-form").removeClass("addBlur")
+         }
+       });
+       $("#trigger").on("click", () =>{
+         $(".modaled").show();
+         $(".purchase-form").addClass("addBlur");
+       });
+       
+        $("#submitor").on("submit", function(event) {
+           event.preventDefault();
+        });
+     $("#make").on("submit", function(event) {
+        event.preventDefault();
+    });
+  });
    </script>
 {% endblock %}

@@ -5,6 +5,7 @@ let frt = document.getElementById("click4");
 let notify = document.getElementById("notify");
 let darkmode = document.getElementById("darkmode");
 
+        
 fst.addEventListener("click", () =>{
   let element = document.createElement("a");
   element.setAttribute("href", "/home");

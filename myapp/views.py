@@ -14,7 +14,8 @@ from django.views import View
 from django.urls import reverse
 from django.contrib.auth import update_session_auth_hash
 from django.views.decorators.http import require_POST
-
+from django.views.generic import ListView
+from django.db.models import Q
 
 
 
@@ -22,6 +23,8 @@ from django.views.decorators.http import require_POST
 
 def welcome(request):
   return render(request, "home.html")
+
+
 @login_required
 def notification(request):
   is_night = None
@@ -31,7 +34,12 @@ def notification(request):
   except Exception:
     is_night = False
   return render(request, "notification.html", {"nightmode":is_night})
-  
+
+
+
+
+
+
 @login_required
 def transaction_history(request):
   is_night = None
@@ -74,6 +82,7 @@ def register(request):
           #user is created so will log-in user
           login(request, auto_log)
           Profile.objects.create(user=auto_log, phone_number=phone_number, nin=nin)
+          messages.success(request, "Account Successfully Created")
           return redirect("/home")
         else:
           #account is created but user is not unable to login let redirect user to login page
@@ -83,6 +92,7 @@ def register(request):
         return render(request, "create.html", {"error":e})
     else:
       #user info is not correct let redirect user to main page
+      messages.error("Somethin went wrong")
       return redirect("/create")
   return render(request, 'create.html')
 
@@ -98,14 +108,20 @@ def logged(request):
   
   #check method
   if request.method == "POST":
-    username = request.POST.get("username")
-    password = request.POST.get("password")
-    auth = authenticate(username=username, password=password)
-    if auth is not None:
-      login(request, auth)
-      return redirect("/home")
-    else:
-      return render(request, "login.html", {"error": "Invalid Crediential"})
+    try:
+      username = request.POST.get("username")
+      password = request.POST.get("password")
+      auth = authenticate(username=username, password=password)
+      if auth is not None:
+        login(request, auth)
+        messages.success(request, "Successful Login")
+        return redirect("/home")
+      else:
+        messages.error(request, "incorrect Password or Username")
+        return render(request, "login.html", {"error": "Invalid Crediential"})
+    except Exception as e:
+      print("Error occured while login")
+      return HttpResponse("Error occured while login")
   return render(request, 'login.html')
   
   
@@ -259,17 +275,21 @@ def night_mode(request):
         # Toggle the night_mode field
         user_profile.night_mode = not user_profile.night_mode
         user_profile.save()
+        messages.success(request, "Night Mode Activated")
         return redirect("/home")
     except UserProfiles.DoesNotExist:
         try:
             # If user profile does not exist, create one
             UserProfiles.objects.create(user=request.user, night_mode=True)
+            messages.success(request, "Night Mode Activated")
             return redirect("/home")
         except Exception as e:
             # Handle any exception that might occur during profile creation
+            messages.error(request, "Something went wrong")
             return HttpResponse(f"An error occurred while creating the user profile: {e}")
     except Exception as e:
         # Handle any other exceptions
+        messages.error(request, "Something went wrong")
         return HttpResponse(f"An error occurred: {e}")
 
 
@@ -282,7 +302,15 @@ def night_mode(request):
 @login_required
 def purchase_data(request):
   is_night = None
+  message = "Incorrect Pin please try again"
+  success = "ERROR!!"
   pin = ""
+  balanced = 0
+  try:
+    balance = Balance.objects.get(user=request.user)
+    balanced = balance.balance
+  except Exception:
+    return HttpResponse("Something went wrong")
   try:
     x, y = GeneratePin.objects.get_or_create(user=request.user)
     pin = x.pin
@@ -293,7 +321,7 @@ def purchase_data(request):
     is_night = nightmode.night_mode
   except Exception:
     is_night = False
-  return render(request, "data-purchase.html", {"nightmode":is_night, "pin":pin})
+  return render(request, "data-purchase.html", {"nightmode":is_night, "pin":pin, "message":message, "success":success, "balanced": balanced})
   
   
 @login_required
@@ -411,6 +439,7 @@ class InvoicePDFView(WeasyTemplateView):
           downloaded.save()
           self.pdf_filename = f"reciept_pystar{downloaded.downloaded}.pdf"
         except Exception as e:
+          print(e)
           Download.objects.create(user=self.request.user, downloaded=1)
           self.pdf_filename = f"reciept_pystar{1}.pdf"
         context['reciept'] = x
@@ -498,9 +527,11 @@ def change_password(request):
     user = request.user
     
     if (new_password != confirm_password) and len(new_password) >= 2:
+      messages.error(request, "Password not match")
       return redirect("/profile?ischange=false")
     
     if user.check_password(new_password):
+      messages.error("Cannot use same password")
       return redirect("/profile?exist=true")
     # Check the current password
     if not user.check_password(current_password):
@@ -516,3 +547,61 @@ def change_password(request):
     
     messages.success(request, "Password changed successfully.")
     return redirect('/profile?ischange=true')  # Redirect to a success page
+
+
+def change_pin(request):
+  list(messages.get_messages(request))
+  if request.method == "POST":
+    try:
+      mypin, crt = GeneratePin.objects.get_or_create(user=request.user)
+      new_pin = request.POST.get("newpin")
+      oldpin = request.POST.get("oldpin")
+      confirm_pin = request.POST.get("retypepin")
+      if new_pin != confirm_pin:
+        messages.error(request, "Password not match")
+        return redirect("/profile")
+        
+      if oldpin != mypin.pin:
+        messages.error(request, "Old Password Not Match")
+        return redirect("/profile")
+      if new_pin == mypin.pin:
+        messages.error(request, "Cannot use same passworď")
+        return redirect("/profile")
+        
+      mypin.pin = new_pin
+      mypin.save()
+      messages.success(request, "Pin successfully changed")
+      return redirect(reverse("profile"))
+    except Exception as e:
+      print("something went wrong", e)
+      return HttpResponse("Something Went Wrong")
+  else:
+    return redirect("/profile")
+    
+
+
+class SearchResultsView(ListView):
+  model = Development
+  template_name = 'transaction.html'
+  context_object_name = 'dev'
+
+  def get_queryset(self):
+    query = self.request.GET.get('q')
+    if query:
+      return Development.objects.filter(Q(phone__icontains=query)|Q(data_amount__icontains=query), user=self.request.user)
+    return Development.objects.none()
+    
+  def get_context_data(self, **kwargs):
+    is_night = None
+    try:
+      nightmode = UserProfiles.objects.get(user=self.request.user)
+      is_night = nightmode.night_mode
+    except Exception:
+      is_night = False
+      print('Something went wrong')
+    context = super().get_context_data(**kwargs)
+    # Add your additional data here
+    context['nightmode'] = is_night
+    # For example, you might want to pass a count of results
+    context['total_results'] = self.get_queryset().count()
+    return context

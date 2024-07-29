@@ -145,17 +145,6 @@ $(document).ready(() =>{
   $("#9mobile").click(()=> {
     $(".selecting").val("GLO").change();
   });
-  
-  let pin = "{{ pin|escapejs }}"
-  $("#submitor").on("submit", function(event) {
-     event.preventDefault();
-   });
-     $("#make").on("submit", function(event) {
-     event.preventDefault();
-     alert(pin);
-   });
-   
-
    
    
   let toGo = document.createElement("a");
@@ -178,7 +167,7 @@ $(document).ready(() =>{
     toGo.click();
   });
   $("#more").click(() =>{
-    toGo.setAttribute("href", "/more");
+    toGo.setAttribute("href", "#");
     toGo.click();
   });
 });

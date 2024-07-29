@@ -36,7 +36,7 @@
       <div>
         <p style="color: #B59410"><small>Referral</small></p>
         <h3 class="ref">Referral Link</h3>
-        <small class="url">https://127.0.0.1:8000/mobile/register/?referral={{profile.phone_number}}</small><br /><br />
+        <small class="url">https://127.0.0.1:8000/mobile/register/?referral={{profile.phone_number}}</small><br /><br /><br />
         <div>
           <button class="btn-profile cp">Copy Link</button>
           <button class="btn-profile cm">View Commission</button>
@@ -63,7 +63,8 @@
         <p style="color: #B59410"><small>Update Login Details</small></p>
         <h3 class="ref">Login Details</h3>
         <p></p>
-        <form method="POST" action="/change/pin">
+        <form method="POST" action="/change/pin/">
+          {% csrf_token %}
           <label style="color: #B59410" for="pwd-old" class="labels"><small>Old Pin </small></label>
           <input style="border: solid 1px lightgrey" placeholder="Old Pin" type="number" name="oldpin" class="fixed-price" id="pwd-old" /><br/>
           
