@@ -1,0 +1,20 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /generate_account
+Disallow: /logout
+Disallow: /history
+Disallow: /notification
+Disallow: /nightmode
+Disallow: /databundle
+Disallow: /purchase
+Disallow: /myreciept/
+Disallow: /invoice/
+Disallow: /profile
+Disallow: /change/password/
+Disallow: /change/pin/
+Disallow: /finder/
+Allow: /
+Allow: /accounts/login/
+Allow: /accounts/create/
+
+Sitemap: https://yourdomain.com/sitemap.xml

@@ -96,3 +96,13 @@ form > .submit {
 .search-result > .detail{
   color: white,;
 }
+
+@media only screen and (min-width: 768px) {
+  .for-wifi > .fa-wifi {
+    background-color: lightblue;
+    color: white;
+    padding:0.75rem;
+    border-radius: 3vw;
+    margin-top: 10rem;
+  }
+}

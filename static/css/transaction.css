@@ -3,7 +3,7 @@
   width: 92%;
   border-radius: 5vw;
   padding: 2vw;
-  height: 50vw;
+  height: 13rem;
   color: black;
   margin: 2vw;
   margin-top: 6vw;
@@ -21,22 +21,21 @@
   color: grey;
 }
 .custom-search > .to-red {
-  color: red;
+  2: red;
 }
 
 form > * {
-  padding: 2vw;
-  border-radius: 2vw;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
 }
 form > .search {
   border: solid 0.5px lightgrey;
-  outline: solid 0.5px lightgrey;
 }
 form > .submit {
   background-color: blue;
   color: white;
   border: none;
-  width: 20vw;
+  width: 6rem;
   /* font-weight: bold; */
 }
 
@@ -60,9 +59,9 @@ form > .submit {
 .for-wifi > .fa-wifi {
   background-color: lightblue;
   color: white;
-  padding:2vw;
+  padding:0.75rem;
   border-radius: 3vw;
-  margin-top: 14vw;
+  margin-top: 3.5rem;
 }
 
 
@@ -82,7 +81,7 @@ form > .submit {
   color: green;
   font-size: 10px;
   position: relative;
-  top: -5vw;
+  top: -0.75rem;
 }
 #status {
   color: white;
@@ -93,4 +92,13 @@ form > .submit {
   padding: 3px;
   border-radius: 50%;
 }
+
+
+@media only screen and (min-width: 768px) {
+  .data-wifi {
+    position: relative;
+    left: -4rem;
+  }
+}
+
 
