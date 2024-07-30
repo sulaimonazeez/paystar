@@ -37,5 +37,4 @@ darkmode.addEventListener("click", () =>{
   let mode = document.createElement("a");
   mode.setAttribute("href", "/nightmode");
   mode.click();
-  alert("move")
 })

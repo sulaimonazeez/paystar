@@ -31,12 +31,11 @@
     }
     .keeper {
       color: #040273;
-      font-size: 40px;
+      font-size: 2em;
+      font-weight:bold;
     }
     .mono {
-      font-family: "Reddit Mono", monospace;
       font-optical-sizing: auto;
-      font-weight: 500;
       font-style: normal;
     }
     .call-up {
@@ -48,6 +47,9 @@
       background-color: green;
       width: 94vw;
       height: 0.8vw;
+    }
+    .dls {
+      width: 100%;
     }
     .self-container > p {
       margin-top: 6vw;
@@ -74,9 +76,74 @@
     .choosen {
       font-weight: 550;
     }
+    .user-image {
+      width: 100%;
+    }
+    #remote > img {
+      width: 100%;
+    }
+    footer {
+      background-color: black;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    @media only screen and (min-width: 768px) {
+      #remote {
+        width: 65%;
+        position: relative;
+        left: 8.7rem;
+        top: 2rem;
+      }
+      #remote > .dls {
+        width: 20rem;
+        border-radius: 0.5rem;
+      }
+      #remote > div {
+        position: relative;
+        width: 20rem;
+      }
+      .user-image{
+        width: 12rem;
+      }
+      #row1 {
+        margin-top: 8rem;
+        position: relative;
+        left: 9rem;
+        width: 85%;
+      }
+      #row2 {
+        width: 85%;
+        position: relative;
+        left: 9rem;
+        top: 8rem;
+      }
+      #row2 > .col-sm-6 {
+        width: 19rem;
+      }
+      #row2 > .col-sm-6 > img {
+        border-radius: 0.5vw;
+      }
+      .big-sreen {
+        margin-top: 10rem;
+        width: 70%;
+        position: relative;
+        left: 9rem;
+      }
+      
+      .channel-section {
+        width: 70%;
+        position: relative;
+        left: 9rem;
+      }
+      
+      .outer-progress > .inner-progress {
+        width: 42rem;
+      }
+    }
   </style>
 </head>
-<body>
+<body style="background-color:linear-gradient(#fff  #FFC5C5)">
 
 <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
@@ -105,10 +172,10 @@
   </div>
 </nav>
 
-<div class="container-fluid mt-4">
-  <div class="row container-fluid">
+<div id="parent-container" class="container-fluid mt-4">
+  <div id="row1" class="row container-fluid">
     <div class="col-xs-12 col-sm-6">
-     <h1 data-aos="zoom-out" class="mono keeper text-danger">Keeping you connected!</h1>
+     <h1 data-aos="zoom-out" class="mono keeper">Keeping you connected!</h1>
      <p data-aos="fade-down" class="">Enjoy highly discounted rates on all our Services. Data, Airtime, Capble tv, Electricity bill, Education pin, etc..</p>
      <div class="login-option" data-aos="fade-up">
        <a href="/accounts/create" style="width: 130px" class="text-center p-2 btn fw-bold btn-success">Register</a>
@@ -120,47 +187,62 @@
      </div>
      </div>
      <div class="col-xs-12 col-sm-4">
-        <img class="w-100" src={% static 'gifme.gif' %} alt="roller" />
+        <img class="user-image" src={% static 'gifme.gif' %} alt="roller" />
      </div>
   </div>
-  <div class="row mt-5 container-fluid">
-    <div class="col-xs-12 col-sm-6">
+  
+  
+  
+  
+  
+  <div id="row2" class="row mt-5 container-fluid">
+    <div class="pxs col-xs-12 col-sm-6">
       <img class="w-100" src={% static "data.jpg" %} alt="vtu" />
       <div class="text-center call-up">
         <button class="btn btn-light text-dark fw-bold">Data Plan</button>
         <p class="text-secondary">Get Internet Data starting from as low as #220/GB</p>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-6">
+    
+    
+    
+    <div class="pxs col-xs-12 col-sm-6">
       <img class="w-100" src={% static "vtu.jpg" %} alt="vtu" />
       <div class="text-center call-up">
-        <button class="btn btn-light text-dark fw-bold">Data Plan</button>
-        <p class="text-secondary">Get Internet Data starting from as low as #220/GB</p>
+        <button class="btn btn-light text-dark fw-bold">Airtime VTU</button>
+        <p class="text-secondary">Enjoy 2.7% on VTU recharge</p>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-12">
-      <img class="w-100" src={% static "bills.jpg" %} alt="vtu" />
+    
+    
+    
+    <div id="remote" class="col-lg-12 col-xlg-12 col-xs-12 col-sm-12">
+      <img class="dls" src={% static "bills.jpg" %} alt="vtu" />
       <div class="text-center call-up">
-        <button class="btn btn-light text-dark fw-bold">Data Plan</button>
-        <p class="text-secondary">Get Internet Data starting from as low as #220/GB</p>
+        <button class="btn btn-light text-dark fw-bold">Bills Payment</button>
+        <p class="text-secondary">Discount on GOTV, DSTV, Startimes, Smile Airtime, Spectranet, Electricity Bill, WAEC and NECO Scratch Card</p>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-6">
+    
+    
+    
+    <div class="pxs col-xs-12 col-sm-6">
       <img class="w-100" src={% static "a2c.jpg" %} alt="vtu" />
       <div class="text-center call-up">
-        <button class="btn btn-light text-dark fw-bold">Data Plan</button>
-        <p class="text-secondary">Get Internet Data starting from as low as #220/GB</p>
+        <button class="btn btn-light text-dark fw-bold">Airtime to Cash</button>
+        <p class="text-secondary">Cash
+Convert MTN, GLO and 9mobile Airtime to Cash at Superb rates.</p>
       </div>
     </div>
     <div class="col-xs-12 col-sm-6">
       <img class="w-100" src={% static "retailer_website.jpg" %} alt="vtu" />
       <div class="text-center call-up">
-        <button class="btn btn-light text-dark fw-bold">Data Plan</button>
-        <p class="text-secondary">Get Internet Data starting from as low as #220/GB</p>
+        <button class="btn btn-light text-dark fw-bold">Retailer Website</button>
+        <p class="text-secondary">Website for retailing paystar Products</p>
       </div>
     </div>
   </div>
-  <div>
+  <div class="big-sreen">
     <img class="rounded w-100" src={% static "why-choose.jpg" %} />
     <div class="self-container">
       <p class="choosen">WHY CHOOSE US?</p>
@@ -206,6 +288,12 @@
   </section>
 </div>
 <br /><br />
+
+<footer>
+  <div>
+    <p>Copyright@2024 Paystar </p>
+  </div>
+</footer>
 <script>
   AOS.init();
 </script>

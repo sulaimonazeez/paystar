@@ -167,7 +167,7 @@ body {
 }
 .payment-toggle > a {
   text-decoration: none;
-  color: black;
+  color: #fff;
   padding: 0.5rem;
   width: 100%;
   margin: auto;
@@ -662,11 +662,11 @@ form > .labeled {
 }
 
 .profile-header {
-  background-color: white;
+  background-color: #1B1212;
   width: 92%;
   border-radius: 5vw;
   padding: 2vw;
-  color: black;
+  color: white;
   margin: 2vw;
   margin-top: 6vw;
   padding-bottom: 5vw;
@@ -722,7 +722,7 @@ div > .url {
   border-radius: 15vw 15vw 0 0;
   /*top: 50%; */
   z-index: 9999999999999999;
-  bottom: 0;
+  bottom: 1rem
   
   
   
