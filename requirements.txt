@@ -15,7 +15,6 @@ fonttools==4.53.1
 html5lib==1.1
 idna==3.7
 maturin==1.7.0
-mysqlclient==2.2.4
 pg8000==1.31.2
 pillow==10.4.0
 pipenv==2024.0.1
